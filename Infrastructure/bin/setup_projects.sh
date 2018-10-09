@@ -9,9 +9,6 @@ fi
 GUID=$1
 USER=$2
 
-echo "clean for now"
-./Infrastructure/bin/cleanup.sh ${GUID}
-
 echo "Creating all Homework Projects for GUID=${GUID} and USER=${USER}"
 oc new-project ${GUID}-nexus        --display-name="${GUID} AdvDev Homework Nexus"
 oc new-project ${GUID}-sonarqube    --display-name="${GUID} AdvDev Homework Sonarqube"
