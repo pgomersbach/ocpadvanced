@@ -29,20 +29,20 @@ echo "Setting up Nexus in project $GUID-nexus"
 # oc new-app -f ../templates/nexus.yaml --param .....
 
 ITEM=nexus
-PROJ_NAME=$GUID-$ITEM
+PROJ_NAME=${GUID}-${ITEM}
 
-oc project $PROJ_NAME
+oc project ${PROJ_NAME}
 echo "Create nexus from template"
-oc process -f Infrastructure/templates/nexus.yml -n $PROJ_NAME -p GUID=${GUID} | oc create -n $PROJ_NAME -f -
+oc process -f Infrastructure/templates/nexus.yml -n ${PROJ_NAME} -p GUID=${GUID} | oc create -n ${PROJ_NAME} -f -
 echo "Expose nexus routes"
-oc expose svc nexus3 -n $PROJ_NAME
-oc expose svc $ITEM-registry -n $PROJ_NAME
+oc expose svc nexus3 -n ${PROJ_NAME}
+oc expose svc ${ITEM}-registry -n ${PROJ_NAME}
 
-echo "Start waiting for $ITEM at";date
+echo "Start waiting for ${ITEM} at";date
 
 while : ; do
  echo "Checking if Nexus is Ready..."
-    oc get pod -n $PROJ_NAME | grep '\-1\-' | grep -v deploy | grep "1/1"
+    oc get pod -n ${PROJ_NAME} | grep '\-1\-' | grep -v deploy | grep "1/1"
     if [ $? == "1" ] 
       then 
       echo "...no. Sleeping 10 seconds."
@@ -52,10 +52,10 @@ while : ; do
     fi
 done
 
-echo "Wait for route to $ITEM"
+echo "Wait for route to ${ITEM}"
 while : ; do
  echo "Checking if route is Ready..."
-    oc get routes -n $PROJ_NAME
+    oc get routes -n ${PROJ_NAME}
     if [ $? == "1" ]
       then
       echo "...no. Sleeping 10 seconds."
@@ -71,7 +71,7 @@ curl -o setup_nexus3.sh -s https://raw.githubusercontent.com/wkulhanek/ocp_advan
 
 chmod +x setup_nexus3.sh
 
-sh setup_nexus3.sh admin admin123 http://$(oc get route nexus3 --template='{{ .spec.host }}' -n $PROJ_NAME )
+sh setup_nexus3.sh admin admin123 http://$(oc get route nexus3 --template='{{ .spec.host }}' -n ${PROJ_NAME} )
 rm -f setup_nexus3.sh
-oc get routes -n $PROJ_NAME
+oc get routes -n ${PROJ_NAME}
 
