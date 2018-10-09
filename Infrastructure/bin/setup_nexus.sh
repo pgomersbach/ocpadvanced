@@ -7,8 +7,6 @@ if [ "$#" -ne 1 ]; then
 fi
 
 GUID=$1
-echo "clean for now"
-sh "./Infrastructure/bin/cleanup.sh ${GUID}"
 echo "Setting up Nexus in project $GUID-nexus"
 
 # Code to set up the Nexus. It will need to
