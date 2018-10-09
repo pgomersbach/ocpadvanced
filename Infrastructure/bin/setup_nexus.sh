@@ -34,11 +34,11 @@ PROJ_NAME=$GUID-$ITEM
 oc project $PROJ_NAME
 echo "Create nexus from template"
 oc process -f Infrastructure/templates/nexus.yml -n $PROJ_NAME -p GUID=${GUID} | oc create -n $PROJ_NAME -f -
-echo "Expose nexu routes"
+echo "Expose nexus routes"
 oc expose svc $ITEM -n $PROJ_NAME
 oc expose svc $ITEM-registry -n $PROJ_NAME
 
-echo "Start waiting for $ITEMs at";date
+echo "Start waiting for $ITEM at";date
 
 while : ; do
  echo "Checking if Nexus is Ready..."
@@ -52,7 +52,20 @@ while : ; do
     fi
 done
 
-echo 'Nexus is running, add repositories'
+echo "Wait for route to $ITEM"
+while : ; do
+ echo "Checking if route is Ready..."
+    oc get routes -n $PROJ_NAME
+    if [ $? == "1" ]
+      then
+      echo "...no. Sleeping 10 seconds."
+        sleep 10
+      else
+        break
+    fi
+done
+
+echo "Nexus is running, add repositories"
 
 curl -o setup_nexus3.sh -s https://raw.githubusercontent.com/wkulhanek/ocp_advanced_development_resources/master/nexus/setup_nexus3.sh
 
