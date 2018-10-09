@@ -53,17 +53,18 @@ while : ; do
 done
 
 echo "Wait for route to ${ITEM}"
-while : ; do
- echo "Checking if route is Ready..."
-    oc get routes -n ${PROJ_NAME}
-    if [ $? == "1" ]
-      then
-      echo "...no. Sleeping 10 seconds."
-        sleep 10
-      else
-        break
-    fi
-done
+sleep 60
+#while : ; do
+# echo "Checking if route is Ready..."
+#    oc get routes -n ${PROJ_NAME}
+#    if [ $? == "1" ]
+#      then
+#      echo "...no. Sleeping 10 seconds."
+#        sleep 10
+#      else
+#        break
+#    fi
+#done
 
 echo "Nexus is running, add repositories"
 
