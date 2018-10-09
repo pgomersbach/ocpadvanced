@@ -35,7 +35,7 @@ oc project $PROJ_NAME
 echo "Create nexus from template"
 oc process -f Infrastructure/templates/nexus.yml -n $PROJ_NAME -p GUID=${GUID} | oc create -n $PROJ_NAME -f -
 echo "Expose nexus routes"
-oc expose svc $ITEM -n $PROJ_NAME
+oc expose svc nexus3 -n $PROJ_NAME
 oc expose svc $ITEM-registry -n $PROJ_NAME
 
 echo "Start waiting for $ITEM at";date
