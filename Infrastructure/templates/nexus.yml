@@ -51,7 +51,7 @@ objects:
       spec:
         containers:
         - image: sonatype/nexus3
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
               command:
