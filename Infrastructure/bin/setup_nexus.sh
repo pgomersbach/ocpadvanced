@@ -48,7 +48,7 @@ while : ; do
         break 
     fi
 done
-
+sleep 30
 echo "Nexus is running, add repositories"
 
 curl -o setup_nexus3.sh -s https://raw.githubusercontent.com/wkulhanek/ocp_advanced_development_resources/master/nexus/setup_nexus3.sh
