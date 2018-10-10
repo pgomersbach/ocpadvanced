@@ -51,11 +51,13 @@ done
 sleep 30
 echo "Nexus is running, add repositories"
 
-curl -o setup_nexus3.sh -s https://raw.githubusercontent.com/wkulhanek/ocp_advanced_development_resources/master/nexus/setup_nexus3.sh
+curl https://raw.githubusercontent.com/wkulhanek/ocp_advanced_development_resources/master/nexus/setup_nexus3.sh | bash -s admin admin123 http://$(oc get route nexus3 --template='{{ .spec.host }}' -n ${PROJ_NAME} )
+# org config
+# curl -o setup_nexus3.sh -s https://raw.githubusercontent.com/wkulhanek/ocp_advanced_development_resources/master/nexus/setup_nexus3.sh
 
-chmod +x setup_nexus3.sh
+# chmod +x setup_nexus3.sh
 
-sh setup_nexus3.sh admin admin123 http://$(oc get route nexus3 --template='{{ .spec.host }}' -n ${PROJ_NAME} )
-rm -f setup_nexus3.sh
+# sh setup_nexus3.sh admin admin123 http://$(oc get route nexus3 --template='{{ .spec.host }}' -n ${PROJ_NAME} )
+# rm -f setup_nexus3.sh
 oc get routes -n ${PROJ_NAME}
 
