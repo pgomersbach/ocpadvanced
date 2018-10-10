@@ -151,6 +151,19 @@ objects:
       kind: Service
       name: nexus3
       weight: 100
+- kind: Route
+  apiVersion: v1
+  metadata:
+    labels:
+      name: nexus
+    name: nexus-registry
+  spec:
+    port:
+      targetPort: 5000
+    to:
+      kind: Service
+      name: nexus-registry
+      weight: 100
 parameters:  
 - description: GUID
   name: GUID
